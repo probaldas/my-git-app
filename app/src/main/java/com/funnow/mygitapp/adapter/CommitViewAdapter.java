@@ -13,8 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CommitViewAdapter extends RecyclerView.Adapter<CommitViewHolder> {
 
-    private ArrayList<CommitViewModel> commitViewModels;
+    private ArrayList<CommitViewModel> mCommitViewModels;
     private LayoutInflater inflater;
+
+    public CommitViewAdapter(ArrayList<CommitViewModel> commitViewModels) {
+        this.mCommitViewModels = commitViewModels;
+    }
 
     @NonNull
     @Override
@@ -29,13 +33,13 @@ public class CommitViewAdapter extends RecyclerView.Adapter<CommitViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CommitViewHolder holder, int position) {
-        final CommitViewModel viewModel = commitViewModels.get(position);
+        final CommitViewModel viewModel = mCommitViewModels.get(position);
         holder.bind(viewModel);
     }
 
     @Override
     public int getItemCount() {
-        return commitViewModels.size();
+        return mCommitViewModels.size();
     }
 
 }
