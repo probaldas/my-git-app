@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data class="CommitDataBinding">
+
         <variable
             name="viewModel"
             type="com.funnow.mygitapp.CommitViewModel" />
@@ -21,8 +22,7 @@
             android:layout_marginEnd="16dp"
             android:text="@{viewModel.committerName}"
             android:textColor="@color/blue"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,10 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="@string/commit_hash_label"
             android:textColor="@color/blue"
-            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/commiter_name" />
@@ -45,10 +44,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="@{viewModel.commitHash}"
             android:textColor="@color/dark_grey"
-            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/commit_hash_label"
             app:layout_constraintTop_toBottomOf="@+id/commiter_name" />
@@ -61,7 +59,6 @@
             android:layout_marginTop="4dp"
             android:text="@string/commit_msg_label"
             android:textColor="@color/blue"
-            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/commit_hash_label" />
@@ -74,9 +71,9 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:fontFamily="@font/quicksand"
             android:text="@{viewModel.commitMsg}"
             android:textColor="@color/dark_grey"
-            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/commit_msg_label"

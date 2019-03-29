@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryDark">@color/blue</item>
         <item name="colorAccent">@color/blue</item>
-        <item name="android:fontFamily">@font/josefin_sans</item>
+        <item name="android:fontFamily">@font/quicksand_bold</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@color/blue</item>
