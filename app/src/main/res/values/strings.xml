@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">my-git-app</string>
+    <string name="app_title">GitHub Commits for my-git-app</string>
 </resources>
