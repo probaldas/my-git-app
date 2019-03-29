@@ -1,13 +1,5 @@
 package com.funnow.mygitapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 
 import com.funnow.mygitapp.adapter.CommitViewAdapter;
@@ -16,8 +8,17 @@ import com.funnow.mygitapp.models.GitCommits;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 public class MainActivity extends AppCompatActivity {
 
+    private SwipeRefreshLayout swipeRefersh;
     private RecyclerView recyclerView;
     private CommitViewModel viewModel;
 
@@ -30,14 +31,28 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel = ViewModelProviders.of(this).get(CommitViewModel.class);
 
+        swipeRefersh = findViewById(R.id.swipe_refresh);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
+        getDataFromServer();
+
+        swipeRefersh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getDataFromServer();
+            }
+        });
+    }
+
+    private void getDataFromServer() {
+        swipeRefersh.setRefreshing(true);
         viewModel.getAllCommits().observe(this, new Observer<List<GitCommits>>() {
             @Override
             public void onChanged(List<GitCommits> gitCommits) {
                 recyclerView.setAdapter(new CommitViewAdapter(getData(gitCommits)));
+                swipeRefersh.setRefreshing(false);
             }
         });
     }
@@ -46,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<CommitViewModel> viewModels = new ArrayList<>();
         CommitViewModel viewModel;
 
-        for (GitCommits commits: gitCommits) {
+        for (GitCommits commits : gitCommits) {
             viewModel = new CommitViewModel();
 
             viewModel.setCommitterName(commits.getCommit().getCommitter().getName());
