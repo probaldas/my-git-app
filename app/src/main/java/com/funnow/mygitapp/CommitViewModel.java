@@ -1,8 +1,7 @@
 package com.funnow.mygitapp;
 
 import com.funnow.mygitapp.models.GitCommits;
-import com.funnow.mygitapp.repositories.GitApiRespository;
-import com.funnow.mygitapp.repositories.NetworkRepository;
+import com.funnow.mygitapp.services.GitApiRepository;
 
 import java.util.List;
 
@@ -13,27 +12,18 @@ import androidx.lifecycle.ViewModel;
 
 public class CommitViewModel extends ViewModel {
 
+    @Inject
+    GitApiRepository gitApiRepository;
     private String committerName;
     private String commitHash;
     private String commitMsg;
 
-    private GitApiRespository apiRespository;
-
-    @Inject
-    NetworkRepository networkRepository;
-
     CommitViewModel() {
-        apiRespository = new GitApiRespository();
-
         MyGitApplication.getApplication().getDataComponent().inject(this);
     }
 
-    LiveData<List<GitCommits>> getAllCommits() {
-        return apiRespository.getAllCommits();
-    }
-
     LiveData<List<GitCommits>> getCommits() {
-        return networkRepository.getAllCommits();
+        return gitApiRepository.getAllCommits();
     }
 
     public String getCommitterName() {

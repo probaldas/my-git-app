@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -48,11 +47,6 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setAdapter(new CommitViewAdapter(getData(gitCommits)));
             swipeRefersh.setRefreshing(false);
         });
-
-        /*viewModel.getAllCommits().observe(this, gitCommits -> {
-            recyclerView.setAdapter(new CommitViewAdapter(getData(gitCommits)));
-            swipeRefersh.setRefreshing(false);
-        });*/
     }
 
     private ArrayList<CommitViewModel> getData(List<GitCommits> gitCommits) {

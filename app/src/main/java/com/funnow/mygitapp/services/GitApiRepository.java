@@ -1,4 +1,4 @@
-package com.funnow.mygitapp.repositories;
+package com.funnow.mygitapp.services;
 
 import com.funnow.mygitapp.models.GitCommits;
 import com.funnow.mygitapp.services.WebService;
@@ -12,13 +12,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NetworkRepository {
+public class GitApiRepository {
 
     private static final String CONTENT_TYPE = "application/vnd.github.VERSION.sha";
     private WebService webService;
 
     @Inject
-    public NetworkRepository(WebService webService) {
+    public GitApiRepository(WebService webService) {
         this.webService = webService;
     }
 

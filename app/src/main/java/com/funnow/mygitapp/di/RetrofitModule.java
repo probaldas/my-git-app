@@ -2,7 +2,7 @@ package com.funnow.mygitapp.di;
 
 import android.app.Application;
 
-import com.funnow.mygitapp.repositories.NetworkRepository;
+import com.funnow.mygitapp.services.GitApiRepository;
 import com.funnow.mygitapp.services.WebService;
 
 import javax.inject.Singleton;
@@ -36,6 +36,7 @@ public class RetrofitModule {
     public final OkHttpClient provideHttpClient(HttpLoggingInterceptor interceptor) {
         return new OkHttpClient.Builder().addInterceptor(interceptor).build();
     }
+
     @Provides
     @Singleton
     public final Retrofit provideRetrofit(OkHttpClient okHttpClient) {
@@ -52,8 +53,8 @@ public class RetrofitModule {
     }
 
     @Provides
-    public final NetworkRepository provideRepository(WebService webService) {
-        return new NetworkRepository(webService);
+    public final GitApiRepository provideRepository(WebService webService) {
+        return new GitApiRepository(webService);
     }
 
 }
