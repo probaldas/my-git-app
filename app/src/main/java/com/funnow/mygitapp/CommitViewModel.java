@@ -16,11 +16,11 @@ public class CommitViewModel extends ViewModel {
 
     private GitApiRespository apiRespository;
 
-    public CommitViewModel() {
+    CommitViewModel() {
         apiRespository = new GitApiRespository();
     }
 
-    public LiveData<List<GitCommits>> getAllCommits() {
+    LiveData<List<GitCommits>> getAllCommits() {
         return apiRespository.getAllCommits();
     }
 
@@ -28,7 +28,7 @@ public class CommitViewModel extends ViewModel {
         return committerName;
     }
 
-    public void setCommitterName(String committerName) {
+    void setCommitterName(String committerName) {
         this.committerName = committerName;
     }
 
@@ -36,7 +36,7 @@ public class CommitViewModel extends ViewModel {
         return commitHash;
     }
 
-    public void setCommitHash(String commitHash) {
+    void setCommitHash(String commitHash) {
         this.commitHash = commitHash;
     }
 
@@ -44,7 +44,7 @@ public class CommitViewModel extends ViewModel {
         return commitMsg;
     }
 
-    public void setCommitMsg(String commitMsg) {
+    void setCommitMsg(String commitMsg) {
         this.commitMsg = commitMsg;
     }
 }

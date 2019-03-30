@@ -38,22 +38,15 @@ public class MainActivity extends AppCompatActivity {
 
         getDataFromServer();
 
-        swipeRefersh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getDataFromServer();
-            }
-        });
+        swipeRefersh.setOnRefreshListener(this::getDataFromServer);
     }
 
     private void getDataFromServer() {
         swipeRefersh.setRefreshing(true);
-        viewModel.getAllCommits().observe(this, new Observer<List<GitCommits>>() {
-            @Override
-            public void onChanged(List<GitCommits> gitCommits) {
-                recyclerView.setAdapter(new CommitViewAdapter(getData(gitCommits)));
-                swipeRefersh.setRefreshing(false);
-            }
+
+        viewModel.getAllCommits().observe(this, gitCommits -> {
+            recyclerView.setAdapter(new CommitViewAdapter(getData(gitCommits)));
+            swipeRefersh.setRefreshing(false);
         });
     }
 

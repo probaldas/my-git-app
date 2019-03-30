@@ -9,12 +9,12 @@ public class CommitViewHolder extends RecyclerView.ViewHolder {
 
     private CommitDataBinding mDataBinding;
 
-    public CommitViewHolder(CommitDataBinding dataBinding) {
+    CommitViewHolder(CommitDataBinding dataBinding) {
         super(dataBinding.getRoot());
         this.mDataBinding = dataBinding;
     }
 
-    public void bind(CommitViewModel viewModel) {
+    void bind(CommitViewModel viewModel) {
         this.mDataBinding.setViewModel(viewModel);
     }
 
