@@ -44,10 +44,15 @@ public class MainActivity extends AppCompatActivity {
     private void getDataFromServer() {
         swipeRefersh.setRefreshing(true);
 
-        viewModel.getAllCommits().observe(this, gitCommits -> {
+        viewModel.getCommits().observe(this, gitCommits -> {
             recyclerView.setAdapter(new CommitViewAdapter(getData(gitCommits)));
             swipeRefersh.setRefreshing(false);
         });
+
+        /*viewModel.getAllCommits().observe(this, gitCommits -> {
+            recyclerView.setAdapter(new CommitViewAdapter(getData(gitCommits)));
+            swipeRefersh.setRefreshing(false);
+        });*/
     }
 
     private ArrayList<CommitViewModel> getData(List<GitCommits> gitCommits) {
