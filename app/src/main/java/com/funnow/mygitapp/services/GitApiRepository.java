@@ -1,7 +1,6 @@
 package com.funnow.mygitapp.services;
 
 import com.funnow.mygitapp.models.GitCommits;
-import com.funnow.mygitapp.services.WebService;
 
 import java.util.List;
 

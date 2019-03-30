@@ -3,4 +3,5 @@
     <string name="app_title">GitHub Commits for my-git-app</string>
     <string name="commit_hash_label">Commit Hash:</string>
     <string name="commit_msg_label">Message:</string>
+    <string name="exit_alert">Press back again to exit</string>
 </resources>
