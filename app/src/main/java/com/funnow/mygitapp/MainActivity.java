@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
         swipeRefersh.setRefreshing(true);
 
         viewModel.getCommits().observe(this, gitCommits -> {
-            recyclerView.setAdapter(new CommitViewAdapter(getData(gitCommits)));
+            if (gitCommits != null && gitCommits.size() > 0) {
+                recyclerView.setAdapter(new CommitViewAdapter(getData(gitCommits)));
+            }
             swipeRefersh.setRefreshing(false);
         });
     }

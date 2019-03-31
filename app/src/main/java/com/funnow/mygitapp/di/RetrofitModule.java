@@ -2,6 +2,7 @@ package com.funnow.mygitapp.di;
 
 import android.app.Application;
 
+import com.funnow.mygitapp.helper.ErrorUtils;
 import com.funnow.mygitapp.services.GitApiRepository;
 import com.funnow.mygitapp.services.WebService;
 
@@ -17,9 +18,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class RetrofitModule {
 
-    public static final String BASE_URL = "https://api.github.com/";
+    private static final String BASE_URL = "https://api.github.com/";
 
-    Application application;
+    private Application application;
 
     public RetrofitModule(Application application) {
         this.application = application;
@@ -27,19 +28,19 @@ public class RetrofitModule {
 
     @Provides
     @Singleton
-    public final HttpLoggingInterceptor provideInterceptor() {
+    final HttpLoggingInterceptor provideInterceptor() {
         return new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
     }
 
     @Provides
     @Singleton
-    public final OkHttpClient provideHttpClient(HttpLoggingInterceptor interceptor) {
+    final OkHttpClient provideHttpClient(HttpLoggingInterceptor interceptor) {
         return new OkHttpClient.Builder().addInterceptor(interceptor).build();
     }
 
     @Provides
     @Singleton
-    public final Retrofit provideRetrofit(OkHttpClient okHttpClient) {
+    final Retrofit provideRetrofit(OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
@@ -48,13 +49,17 @@ public class RetrofitModule {
     }
 
     @Provides
-    public final WebService provideWebService(Retrofit retrofit) {
+    final WebService provideWebService(Retrofit retrofit) {
         return retrofit.create(WebService.class);
     }
 
     @Provides
-    public final GitApiRepository provideRepository(WebService webService) {
-        return new GitApiRepository(webService);
+    final GitApiRepository provideRepository(WebService webService, ErrorUtils errorUtils) {
+        return new GitApiRepository(webService, errorUtils);
     }
 
+    @Provides
+    final ErrorUtils provideErrorUtils(Retrofit retrofit) {
+        return new ErrorUtils(retrofit);
+    }
 }
