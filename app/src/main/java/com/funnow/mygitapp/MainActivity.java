@@ -1,6 +1,7 @@
 package com.funnow.mygitapp;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.funnow.mygitapp.adapter.CommitViewAdapter;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Toast backPressedToast;
 
     private SwipeRefreshLayout swipeRefersh;
+    private ConstraintLayout errorLayout;
     private RecyclerView recyclerView;
     private CommitViewModel viewModel;
 
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel = ViewModelProviders.of(this).get(CommitViewModel.class);
 
         swipeRefersh = findViewById(R.id.swipe_refresh);
+        errorLayout = findViewById(R.id.error_layout);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -49,7 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel.getCommits().observe(this, gitCommits -> {
             if (gitCommits != null && gitCommits.size() > 0) {
+                errorLayout.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
                 recyclerView.setAdapter(new CommitViewAdapter(getData(gitCommits)));
+            } else {
+                errorLayout.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
             }
             swipeRefersh.setRefreshing(false);
         });
