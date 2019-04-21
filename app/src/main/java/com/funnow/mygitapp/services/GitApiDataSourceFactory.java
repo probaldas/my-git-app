@@ -24,4 +24,8 @@ public class GitApiDataSourceFactory extends DataSource.Factory {
         dataSourceMutableLiveData.postValue(mGitApiDataSource);
         return mGitApiDataSource;
     }
+
+    public MutableLiveData<PageKeyedDataSource<Integer, GitCommits>> getDataSourceMutableLiveData() {
+        return dataSourceMutableLiveData;
+    }
 }

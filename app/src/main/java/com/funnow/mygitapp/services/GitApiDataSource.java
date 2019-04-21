@@ -1,5 +1,7 @@
 package com.funnow.mygitapp.services;
 
+import android.app.Dialog;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,8 @@ import retrofit2.Response;
 
 public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
 
+    private static final String TAG = GitApiDataSource.class.getSimpleName();
+
     private static final String CONTENT_TYPE = "application/vnd.github.VERSION.sha";
     private static final int FIRST_PAGE = 1;
     public static final int PAGE_SIZE = 10;
@@ -38,6 +42,7 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
                 .enqueue(new Callback<List<GitCommits>>() {
                     @Override
                     public void onResponse(Call<List<GitCommits>> call, Response<List<GitCommits>> response) {
+                        Log.i(TAG, "loadInitial called for " + FIRST_PAGE + " page");
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
                                 callback.onResult(response.body(), null, FIRST_PAGE + 1);
@@ -61,6 +66,7 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
                 .enqueue(new Callback<List<GitCommits>>() {
                     @Override
                     public void onResponse(Call<List<GitCommits>> call, Response<List<GitCommits>> response) {
+                        Log.i(TAG, "loadInitial called for " + params.key + " page");
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
                                 Integer key = (params.key > 1) ? params.key - 1 : null;
@@ -85,6 +91,7 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
                 .enqueue(new Callback<List<GitCommits>>() {
                     @Override
                     public void onResponse(Call<List<GitCommits>> call, Response<List<GitCommits>> response) {
+                        Log.i(TAG, "loadInitial called for " + params.key + " page");
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
                                 Integer key = response.body().size() != 0 ? params.key + 1 : null;

@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 
@@ -28,11 +29,10 @@ public class CommitViewPagedAdapter extends PagedListAdapter<GitCommits, CommitV
                 }
             };
     private LayoutInflater inflater;
-    private ArrayList<CommitViewModel> mCommitViewModels;
+    private PagedList<GitCommits> mCommitViewModels;
 
-    protected CommitViewPagedAdapter(ArrayList<CommitViewModel> commitViewModels) {
+    public CommitViewPagedAdapter() {
         super(diffCallback);
-        this.mCommitViewModels = commitViewModels;
     }
 
     @NonNull
@@ -48,8 +48,13 @@ public class CommitViewPagedAdapter extends PagedListAdapter<GitCommits, CommitV
 
     @Override
     public void onBindViewHolder(@NonNull CommitViewHolder holder, int position) {
-        final CommitViewModel viewModel = mCommitViewModels.get(position);
+        final CommitViewModel viewModel = getData(getItem(position));
         holder.bind(viewModel);
     }
 
+    private CommitViewModel getData(GitCommits gitCommits) {
+        return new CommitViewModel(gitCommits.getCommit().getCommitter().getName(),
+                gitCommits.getSha().substring(0, 7),
+                gitCommits.getCommit().getMessage());
+    }
 }
