@@ -1,32 +1,32 @@
 package com.funnow.mygitapp;
 
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.funnow.mygitapp.adapter.CommitViewAdapter;
-import com.funnow.mygitapp.models.GitCommits;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.funnow.mygitapp.adapter.CommitViewPagedAdapter;
+import com.funnow.mygitapp.models.GitCommits;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private long backPressedTime;
     private Toast backPressedToast;
 
     private SwipeRefreshLayout swipeRefersh;
-    private ConstraintLayout errorLayout;
     private RecyclerView recyclerView;
-    private CommitViewModel viewModel;
+
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
         setTitle(R.string.app_title);
 
-        viewModel = ViewModelProviders.of(this).get(CommitViewModel.class);
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         swipeRefersh = findViewById(R.id.swipe_refresh);
-        errorLayout = findViewById(R.id.error_layout);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -51,34 +50,18 @@ public class MainActivity extends AppCompatActivity {
     private void getDataFromServer() {
         swipeRefersh.setRefreshing(true);
 
-        viewModel.getCommits().observe(this, gitCommits -> {
-            if (gitCommits != null && gitCommits.size() > 0) {
-                errorLayout.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-                recyclerView.setAdapter(new CommitViewAdapter(getData(gitCommits)));
-            } else {
-                errorLayout.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.GONE);
+        final CommitViewPagedAdapter adapter = new CommitViewPagedAdapter();
+
+        mainViewModel.getCommitsPagedList().observe(this, new Observer<PagedList<GitCommits>>() {
+            @Override
+            public void onChanged(PagedList<GitCommits> gitCommits) {
+                Log.i(TAG, "onChanged called and list size is: " + gitCommits.size() + ".");
+                adapter.submitList(gitCommits);
+                swipeRefersh.setRefreshing(false);
             }
-            swipeRefersh.setRefreshing(false);
         });
-    }
 
-    private ArrayList<CommitViewModel> getData(List<GitCommits> gitCommits) {
-        ArrayList<CommitViewModel> viewModels = new ArrayList<>();
-        CommitViewModel viewModel;
-
-        for (GitCommits commits : gitCommits) {
-            viewModel = new CommitViewModel();
-
-            viewModel.setCommitterName(commits.getCommit().getCommitter().getName());
-            viewModel.setCommitHash(commits.getSha().substring(0, 7));
-            viewModel.setCommitMsg(commits.getCommit().getMessage());
-
-            viewModels.add(viewModel);
-        }
-
-        return viewModels;
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

@@ -1,29 +1,18 @@
 package com.funnow.mygitapp;
 
-import com.funnow.mygitapp.models.GitCommits;
-import com.funnow.mygitapp.services.GitApiRepository;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 public class CommitViewModel extends ViewModel {
 
-    @Inject
-    GitApiRepository gitApiRepository;
     private String committerName;
     private String commitHash;
     private String commitMsg;
 
-    CommitViewModel() {
+    public CommitViewModel(String committerName, String commitHash, String commitMsg) {
         MyGitApplication.getApplication().getDataComponent().inject(this);
-    }
-
-    LiveData<List<GitCommits>> getCommits() {
-        return gitApiRepository.getAllCommits();
+        this.committerName = committerName;
+        this.commitHash = commitHash;
+        this.commitMsg = commitMsg;
     }
 
     public String getCommitterName() {
