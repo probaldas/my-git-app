@@ -3,7 +3,6 @@ package com.funnow.mygitapp;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.paging.LivePagedListBuilder;
-import androidx.paging.PageKeyedDataSource;
 import androidx.paging.PagedList;
 
 import com.funnow.mygitapp.models.GitCommits;
@@ -21,9 +20,8 @@ public class MainViewModel extends ViewModel {
 
     public MainViewModel() {
         MyGitApplication.getApplication().getDataComponent().inject(this);
-        //LiveData<PageKeyedDataSource<Integer, GitCommits>> liveDataSource = dataSourceFactory.getDataSourceMutableLiveData();
 
-         config = (new PagedList.Config.Builder())
+        config = (new PagedList.Config.Builder())
                 .setPageSize(GitApiDataSource.PAGE_SIZE)
                 .build();
     }

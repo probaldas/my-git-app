@@ -4,19 +4,9 @@ import androidx.lifecycle.ViewModel;
 
 public class CommitViewModel extends ViewModel {
 
-    /*@Inject
-    GitApiRepository gitApiRepository;*/
     private String committerName;
     private String commitHash;
     private String commitMsg;
-
-    /*public CommitViewModel() {
-        MyGitApplication.getApplication().getDataComponent().inject(this);
-    }*/
-
-    /*LiveData<List<GitCommits>> getCommits() {
-        return gitApiRepository.getAllCommits();
-    }*/
 
     public CommitViewModel(String committerName, String commitHash, String commitMsg) {
         MyGitApplication.getApplication().getDataComponent().inject(this);

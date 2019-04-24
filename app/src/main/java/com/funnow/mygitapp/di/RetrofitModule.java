@@ -5,7 +5,6 @@ import android.app.Application;
 import com.funnow.mygitapp.helper.ErrorUtils;
 import com.funnow.mygitapp.services.GitApiDataSource;
 import com.funnow.mygitapp.services.GitApiDataSourceFactory;
-import com.funnow.mygitapp.services.GitApiRepository;
 import com.funnow.mygitapp.services.WebService;
 
 import javax.inject.Singleton;
@@ -53,11 +52,6 @@ public class RetrofitModule {
     @Provides
     final WebService provideWebService(Retrofit retrofit) {
         return retrofit.create(WebService.class);
-    }
-
-    @Provides
-    final GitApiRepository provideRepository(WebService webService, ErrorUtils errorUtils) {
-        return new GitApiRepository(webService, errorUtils);
     }
 
     @Provides

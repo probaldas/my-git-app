@@ -1,6 +1,5 @@
 package com.funnow.mygitapp.services;
 
-import android.app.Dialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,11 +21,10 @@ import retrofit2.Response;
 
 public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
 
+    public static final int PAGE_SIZE = 10;
     private static final String TAG = GitApiDataSource.class.getSimpleName();
-
     private static final String CONTENT_TYPE = "application/vnd.github.VERSION.sha";
     private static final int FIRST_PAGE = 1;
-    public static final int PAGE_SIZE = 10;
     private WebService webService;
     private ErrorUtils errorUtils;
 

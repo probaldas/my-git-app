@@ -9,10 +9,8 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.funnow.mygitapp.CommitViewModel;
-import com.funnow.mygitapp.databinding.CommitDataBinding;
+import com.funnow.mygitapp.databinding.CommitItemViewBinding;
 import com.funnow.mygitapp.models.GitCommits;
-
-import java.util.ArrayList;
 
 public class CommitViewPagedAdapter extends PagedListAdapter<GitCommits, CommitViewHolder> {
 
@@ -42,7 +40,7 @@ public class CommitViewPagedAdapter extends PagedListAdapter<GitCommits, CommitV
             inflater = LayoutInflater.from(parent.getContext());
         }
 
-        CommitDataBinding dataBinding = CommitDataBinding.inflate(inflater, parent, false);
+        CommitItemViewBinding dataBinding = CommitItemViewBinding.inflate(inflater, parent, false);
         return new CommitViewHolder(dataBinding);
     }
 

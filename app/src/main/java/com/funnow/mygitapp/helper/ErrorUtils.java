@@ -1,6 +1,5 @@
 package com.funnow.mygitapp.helper;
 
-import com.funnow.mygitapp.MainActivity;
 import com.funnow.mygitapp.models.ApiError;
 
 import java.io.IOException;

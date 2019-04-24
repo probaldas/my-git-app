@@ -12,9 +12,6 @@ import retrofit2.http.Query;
 public interface WebService {
 
     @GET("repos/probaldas/my-git-app/commits")
-    Call<List<GitCommits>> getCommits(@Header("Accept") String contentType);
-
-    @GET("repos/probaldas/my-git-app/commits")
     Call<List<GitCommits>> getCommits(
             @Header("Accept") String contentType,
             @Query("page") int pageNumber,
