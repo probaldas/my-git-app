@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private long backPressedTime;
     private Toast backPressedToast;
 
-    private SwipeRefreshLayout swipeRefersh;
+    private SwipeRefreshLayout swipeRefresh;
     private RecyclerView recyclerView;
 
     private MainViewModel mainViewModel;
@@ -37,18 +37,18 @@ public class MainActivity extends AppCompatActivity {
 
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
-        swipeRefersh = findViewById(R.id.swipe_refresh);
+        swipeRefresh = findViewById(R.id.swipe_refresh);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         getDataFromServer();
 
-        swipeRefersh.setOnRefreshListener(this::getDataFromServer);
+        swipeRefresh.setOnRefreshListener(this::getDataFromServer);
     }
 
     private void getDataFromServer() {
-        swipeRefersh.setRefreshing(true);
+        swipeRefresh.setRefreshing(true);
 
         final CommitViewPagedAdapter adapter = new CommitViewPagedAdapter();
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(PagedList<GitCommits> gitCommits) {
                 Log.i(TAG, "onChanged called and list size is: " + gitCommits.size() + ".");
                 adapter.submitList(gitCommits);
-                swipeRefersh.setRefreshing(false);
+                swipeRefresh.setRefreshing(false);
             }
         });
 
