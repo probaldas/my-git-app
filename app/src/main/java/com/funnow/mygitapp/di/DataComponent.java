@@ -1,7 +1,7 @@
 package com.funnow.mygitapp.di;
 
-import com.funnow.mygitapp.CommitViewModel;
-import com.funnow.mygitapp.MainViewModel;
+import com.funnow.mygitapp.viewmodel.CommitViewModel;
+import com.funnow.mygitapp.viewmodel.MainViewModel;
 import com.funnow.mygitapp.MyGitApplication;
 import com.funnow.mygitapp.services.GitApiDataSourceFactory;
 

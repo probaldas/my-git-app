@@ -15,10 +15,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.funnow.mygitapp.adapter.CommitViewPagedAdapter;
 import com.funnow.mygitapp.models.GitCommits;
+import com.funnow.mygitapp.viewmodel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int BACK_PRESSED_INTERVAL = 2000;
 
     private long backPressedTime;
     private Toast backPressedToast;
@@ -33,40 +35,51 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Set custom title for app
         setTitle(R.string.app_title);
 
+        // get object for MainViewModel
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
-        swipeRefresh = findViewById(R.id.swipe_refresh);
+        // Setup recycler view
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
+        // Setup swipe refresh to reload data
+        swipeRefresh = findViewById(R.id.swipe_refresh);
         getDataFromServer();
-
         swipeRefresh.setOnRefreshListener(this::getDataFromServer);
     }
 
+    /* Get Git Commits data from backend */
     private void getDataFromServer() {
-        swipeRefresh.setRefreshing(true);
+        swipeRefresh.setRefreshing(true);       // start app refresh
 
+        // Instantiate PagedAdapter
         final CommitViewPagedAdapter adapter = new CommitViewPagedAdapter();
 
-        mainViewModel.getCommitsPagedList().observe(this, new Observer<PagedList<GitCommits>>() {
-            @Override
-            public void onChanged(PagedList<GitCommits> gitCommits) {
-                Log.i(TAG, "onChanged called and list size is: " + gitCommits.size() + ".");
-                adapter.submitList(gitCommits);
-                swipeRefresh.setRefreshing(false);
-            }
+        /*
+        * LiveData callback for gitCommits
+        * Once data is available from backed webservice the observer's onChanged
+        * method will be automatically called.
+        * */
+        mainViewModel.getCommitsPagedList().observe(this, gitCommits -> {
+            Log.i(TAG, "onChanged called and list size is: " + gitCommits.size() + ".");
+            adapter.submitList(gitCommits);
+            swipeRefresh.setRefreshing(false);      // stop app refersh
         });
 
+        // Attach adapter to recycler view
         recyclerView.setAdapter(adapter);
     }
 
+    /*
+    * Override back button pressed, to implement 'Press back again to exit'
+    * */
     @Override
     public void onBackPressed() {
-        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+        if (backPressedTime + BACK_PRESSED_INTERVAL > System.currentTimeMillis()) {
             super.onBackPressed();
             backPressedToast.cancel();
             return;

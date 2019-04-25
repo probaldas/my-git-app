@@ -1,6 +1,6 @@
 package com.funnow.mygitapp.adapter;
 
-import com.funnow.mygitapp.CommitViewModel;
+import com.funnow.mygitapp.viewmodel.CommitViewModel;
 import com.funnow.mygitapp.databinding.CommitItemViewBinding;
 
 import androidx.recyclerview.widget.RecyclerView;

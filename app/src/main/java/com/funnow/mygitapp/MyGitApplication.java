@@ -22,11 +22,9 @@ public class MyGitApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         application = this;
 
         dataComponent = DaggerDataComponent.builder().retrofitModule(new RetrofitModule(this)).build();
-
         dataComponent.inject(this);
     }
 }

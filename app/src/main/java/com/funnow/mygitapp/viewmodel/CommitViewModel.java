@@ -1,6 +1,8 @@
-package com.funnow.mygitapp;
+package com.funnow.mygitapp.viewmodel;
 
 import androidx.lifecycle.ViewModel;
+
+import com.funnow.mygitapp.MyGitApplication;
 
 public class CommitViewModel extends ViewModel {
 

@@ -8,7 +8,7 @@ import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.funnow.mygitapp.CommitViewModel;
+import com.funnow.mygitapp.viewmodel.CommitViewModel;
 import com.funnow.mygitapp.databinding.CommitItemViewBinding;
 import com.funnow.mygitapp.models.GitCommits;
 

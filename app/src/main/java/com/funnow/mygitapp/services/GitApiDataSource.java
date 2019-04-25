@@ -21,10 +21,11 @@ import retrofit2.Response;
 
 public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
 
-    public static final int PAGE_SIZE = 10;
     private static final String TAG = GitApiDataSource.class.getSimpleName();
     private static final String CONTENT_TYPE = "application/vnd.github.VERSION.sha";
     private static final int FIRST_PAGE = 1;
+    public static final int PAGE_SIZE = 10;
+
     private WebService webService;
     private ErrorUtils errorUtils;
 
@@ -34,6 +35,9 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
         this.errorUtils = errorUtils;
     }
 
+    /*
+    * Loading initial set of data (first 10 commits)
+    * */
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Integer, GitCommits> callback) {
         webService.getCommits(CONTENT_TYPE, FIRST_PAGE, PAGE_SIZE)
@@ -53,11 +57,14 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
 
                     @Override
                     public void onFailure(Call<List<GitCommits>> call, Throwable t) {
-                        showErrorToast("Network Error");
+                        showErrorToast("Error - " + t.getMessage());
                     }
                 });
     }
 
+    /*
+    * Loading previous data set (previous 10 commits)
+    * */
     @Override
     public void loadBefore(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, GitCommits> callback) {
         webService.getCommits(CONTENT_TYPE, params.key, PAGE_SIZE)
@@ -78,11 +85,14 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
 
                     @Override
                     public void onFailure(Call<List<GitCommits>> call, Throwable t) {
-                        showErrorToast("Network Error");
+                        showErrorToast("Error - " + t.getMessage());
                     }
                 });
     }
 
+    /*
+    * Loading next set of data (next 10 commits)
+    * */
     @Override
     public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, GitCommits> callback) {
         webService.getCommits(CONTENT_TYPE, params.key, PAGE_SIZE)
@@ -103,12 +113,15 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
 
                     @Override
                     public void onFailure(Call<List<GitCommits>> call, Throwable t) {
-                        showErrorToast("Network Error");
+                        showErrorToast("Error - " + t.getMessage());
                     }
                 });
     }
 
-    private void showErrorToast(String s) {
-        Toast.makeText(MyGitApplication.getApplication().getApplicationContext(), s, Toast.LENGTH_LONG).show();
+    /*
+    * Helper method for Error Toast
+    * */
+    private void showErrorToast(String error) {
+        Toast.makeText(MyGitApplication.getApplication().getApplicationContext(), error, Toast.LENGTH_LONG).show();
     }
 }

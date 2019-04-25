@@ -21,6 +21,9 @@ public class ErrorUtils {
         this.retrofit = retrofit;
     }
 
+    /*
+    * Helper method to convert response to ApiError object
+    * */
     public ApiError parseError(Response<?> response) {
         Converter<ResponseBody, ApiError> converter =
                 retrofit.responseBodyConverter(ApiError.class, new Annotation[0]);

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.funnow.mygitapp.CommitViewModel" />
+            type="com.funnow.mygitapp.viewmodel.CommitViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
