@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -12,6 +13,28 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/bookmarkBg"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/committer_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_bookmark" />
+
+        <TextView
+            android:id="@+id/rowNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@{String.valueOf(viewModel.rowNum + 1)}"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/bookmarkBg"
+            app:layout_constraintEnd_toEndOf="@+id/bookmarkBg"
+            app:layout_constraintStart_toStartOf="@+id/bookmarkBg"
+            app:layout_constraintTop_toTopOf="@+id/bookmarkBg" />
 
         <TextView
             android:id="@+id/committer_name"

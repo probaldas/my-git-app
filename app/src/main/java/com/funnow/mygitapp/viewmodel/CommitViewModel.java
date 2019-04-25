@@ -9,12 +9,14 @@ public class CommitViewModel extends ViewModel {
     private String committerName;
     private String commitHash;
     private String commitMsg;
+    private int rowNum;
 
-    public CommitViewModel(String committerName, String commitHash, String commitMsg) {
+    public CommitViewModel(String committerName, String commitHash, String commitMsg, int rowNum) {
         MyGitApplication.getApplication().getDataComponent().inject(this);
         this.committerName = committerName;
         this.commitHash = commitHash;
         this.commitMsg = commitMsg;
+        this.rowNum = rowNum;
     }
 
     public String getCommitterName() {
@@ -39,5 +41,13 @@ public class CommitViewModel extends ViewModel {
 
     void setCommitMsg(String commitMsg) {
         this.commitMsg = commitMsg;
+    }
+
+    public int getRowNum() {
+        return rowNum;
+    }
+
+    public void setRowNum(int rowNum) {
+        this.rowNum = rowNum;
     }
 }

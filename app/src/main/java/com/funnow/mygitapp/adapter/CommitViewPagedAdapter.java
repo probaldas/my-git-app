@@ -46,13 +46,14 @@ public class CommitViewPagedAdapter extends PagedListAdapter<GitCommits, CommitV
 
     @Override
     public void onBindViewHolder(@NonNull CommitViewHolder holder, int position) {
-        final CommitViewModel viewModel = getData(getItem(position));
+        final CommitViewModel viewModel = getData(getItem(position), position);
         holder.bind(viewModel);
     }
 
-    private CommitViewModel getData(GitCommits gitCommits) {
+    private CommitViewModel getData(GitCommits gitCommits, int position) {
         return new CommitViewModel(gitCommits.getCommit().getCommitter().getName(),
                 gitCommits.getSha().substring(0, 7),
-                gitCommits.getCommit().getMessage());
+                gitCommits.getCommit().getMessage(),
+                position);
     }
 }
