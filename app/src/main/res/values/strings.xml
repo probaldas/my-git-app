@@ -4,4 +4,5 @@
     <string name="commit_hash_label">Commit Hash:</string>
     <string name="commit_msg_label">Message:</string>
     <string name="exit_alert">Press back again to exit</string>
+    <string name="bookmarkImgDesc">Bookmark Image</string>
 </resources>

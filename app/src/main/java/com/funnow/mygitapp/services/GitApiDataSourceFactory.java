@@ -8,10 +8,11 @@ import com.funnow.mygitapp.models.GitCommits;
 
 import javax.inject.Inject;
 
+@SuppressWarnings("ALL")
 public class GitApiDataSourceFactory extends DataSource.Factory {
 
-    private GitApiDataSource mGitApiDataSource;
-    private MutableLiveData<PageKeyedDataSource<Integer, GitCommits>> dataSourceMutableLiveData
+    private final GitApiDataSource mGitApiDataSource;
+    private final MutableLiveData<PageKeyedDataSource<Integer, GitCommits>> dataSourceMutableLiveData
             = new MutableLiveData<>();
 
     @Inject

@@ -16,7 +16,7 @@ public class MainViewModel extends ViewModel {
 
     @Inject
     GitApiDataSourceFactory dataSourceFactory;
-    private PagedList.Config config;
+    private final PagedList.Config config;
 
     public MainViewModel() {
         MyGitApplication.getApplication().getDataComponent().inject(this);

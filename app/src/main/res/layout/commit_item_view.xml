@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.funnow.mygitapp.viewmodel.CommitViewModel" />
@@ -22,7 +20,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/committer_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_bookmark" />
+            app:srcCompat="@drawable/ic_bookmark"
+            android:contentDescription="@string/bookmarkImgDesc" />
 
         <TextView
             android:id="@+id/rowNum"

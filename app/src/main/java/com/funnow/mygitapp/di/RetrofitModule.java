@@ -1,7 +1,5 @@
 package com.funnow.mygitapp.di;
 
-import android.app.Application;
-
 import com.funnow.mygitapp.helper.ErrorUtils;
 import com.funnow.mygitapp.services.GitApiDataSource;
 import com.funnow.mygitapp.services.GitApiDataSourceFactory;
@@ -21,10 +19,7 @@ public class RetrofitModule {
 
     private static final String BASE_URL = "https://api.github.com/";
 
-    private Application application;
-
-    public RetrofitModule(Application application) {
-        this.application = application;
+    public RetrofitModule() {
     }
 
     @Provides

@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 
@@ -12,9 +11,11 @@ import com.funnow.mygitapp.viewmodel.CommitViewModel;
 import com.funnow.mygitapp.databinding.CommitItemViewBinding;
 import com.funnow.mygitapp.models.GitCommits;
 
+import java.util.Objects;
+
 public class CommitViewPagedAdapter extends PagedListAdapter<GitCommits, CommitViewHolder> {
 
-    private static DiffUtil.ItemCallback<GitCommits> diffCallback =
+    private static final DiffUtil.ItemCallback<GitCommits> diffCallback =
             new DiffUtil.ItemCallback<GitCommits>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull GitCommits oldItem, @NonNull GitCommits newItem) {
@@ -27,7 +28,6 @@ public class CommitViewPagedAdapter extends PagedListAdapter<GitCommits, CommitV
                 }
             };
     private LayoutInflater inflater;
-    private PagedList<GitCommits> mCommitViewModels;
 
     public CommitViewPagedAdapter() {
         super(diffCallback);
@@ -46,7 +46,7 @@ public class CommitViewPagedAdapter extends PagedListAdapter<GitCommits, CommitV
 
     @Override
     public void onBindViewHolder(@NonNull CommitViewHolder holder, int position) {
-        final CommitViewModel viewModel = getData(getItem(position), position);
+        final CommitViewModel viewModel = getData(Objects.requireNonNull(getItem(position)), position);
         holder.bind(viewModel);
     }
 

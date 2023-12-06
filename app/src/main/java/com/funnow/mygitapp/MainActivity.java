@@ -5,16 +5,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.paging.PagedList;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.funnow.mygitapp.adapter.CommitViewPagedAdapter;
-import com.funnow.mygitapp.models.GitCommits;
 import com.funnow.mygitapp.viewmodel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {

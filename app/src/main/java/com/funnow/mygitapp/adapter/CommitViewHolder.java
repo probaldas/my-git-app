@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CommitViewHolder extends RecyclerView.ViewHolder {
 
-    private CommitItemViewBinding mDataBinding;
+    private final CommitItemViewBinding mDataBinding;
 
     CommitViewHolder(CommitItemViewBinding dataBinding) {
         super(dataBinding.getRoot());
@@ -18,7 +18,4 @@ public class CommitViewHolder extends RecyclerView.ViewHolder {
         this.mDataBinding.setViewModel(viewModel);
     }
 
-    public CommitItemViewBinding getDataBinding() {
-        return mDataBinding;
-    }
 }

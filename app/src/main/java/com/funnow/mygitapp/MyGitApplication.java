@@ -24,7 +24,7 @@ public class MyGitApplication extends Application {
         super.onCreate();
         application = this;
 
-        dataComponent = DaggerDataComponent.builder().retrofitModule(new RetrofitModule(this)).build();
+        dataComponent = DaggerDataComponent.builder().retrofitModule(new RetrofitModule()).build();
         dataComponent.inject(this);
     }
 }

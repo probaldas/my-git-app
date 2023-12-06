@@ -26,8 +26,8 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
     private static final int FIRST_PAGE = 1;
     public static final int PAGE_SIZE = 10;
 
-    private WebService webService;
-    private ErrorUtils errorUtils;
+    private final WebService webService;
+    private final ErrorUtils errorUtils;
 
     @Inject
     public GitApiDataSource(WebService webService, ErrorUtils errorUtils) {
@@ -43,7 +43,8 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
         webService.getCommits(CONTENT_TYPE, FIRST_PAGE, PAGE_SIZE)
                 .enqueue(new Callback<List<GitCommits>>() {
                     @Override
-                    public void onResponse(Call<List<GitCommits>> call, Response<List<GitCommits>> response) {
+                    public void onResponse(@NonNull Call<List<GitCommits>> call,
+                                           @NonNull Response<List<GitCommits>> response) {
                         Log.i(TAG, "loadInitial called for " + FIRST_PAGE + " page");
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
@@ -56,7 +57,8 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
                     }
 
                     @Override
-                    public void onFailure(Call<List<GitCommits>> call, Throwable t) {
+                    public void onFailure(@NonNull Call<List<GitCommits>> call,
+                                          @NonNull Throwable t) {
                         showErrorToast("Error - " + t.getMessage());
                     }
                 });
@@ -70,7 +72,8 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
         webService.getCommits(CONTENT_TYPE, params.key, PAGE_SIZE)
                 .enqueue(new Callback<List<GitCommits>>() {
                     @Override
-                    public void onResponse(Call<List<GitCommits>> call, Response<List<GitCommits>> response) {
+                    public void onResponse(@NonNull Call<List<GitCommits>> call,
+                                           @NonNull Response<List<GitCommits>> response) {
                         Log.i(TAG, "loadInitial called for " + params.key + " page");
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
@@ -84,7 +87,8 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
                     }
 
                     @Override
-                    public void onFailure(Call<List<GitCommits>> call, Throwable t) {
+                    public void onFailure(@NonNull Call<List<GitCommits>> call,
+                                          @NonNull Throwable t) {
                         showErrorToast("Error - " + t.getMessage());
                     }
                 });
@@ -98,7 +102,8 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
         webService.getCommits(CONTENT_TYPE, params.key, PAGE_SIZE)
                 .enqueue(new Callback<List<GitCommits>>() {
                     @Override
-                    public void onResponse(Call<List<GitCommits>> call, Response<List<GitCommits>> response) {
+                    public void onResponse(@NonNull Call<List<GitCommits>> call,
+                                           @NonNull Response<List<GitCommits>> response) {
                         Log.i(TAG, "loadInitial called for " + params.key + " page");
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
@@ -112,7 +117,8 @@ public class GitApiDataSource extends PageKeyedDataSource<Integer, GitCommits> {
                     }
 
                     @Override
-                    public void onFailure(Call<List<GitCommits>> call, Throwable t) {
+                    public void onFailure(@NonNull Call<List<GitCommits>> call,
+                                          @NonNull Throwable t) {
                         showErrorToast("Error - " + t.getMessage());
                     }
                 });

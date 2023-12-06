@@ -4,6 +4,7 @@ import com.funnow.mygitapp.models.ApiError;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -14,7 +15,7 @@ import retrofit2.Retrofit;
 
 public class ErrorUtils {
 
-    private Retrofit retrofit;
+    private final Retrofit retrofit;
 
     @Inject
     public ErrorUtils(Retrofit retrofit) {
@@ -31,7 +32,7 @@ public class ErrorUtils {
         ApiError apiError;
 
         try {
-            apiError = converter.convert(response.errorBody());
+            apiError = converter.convert(Objects.requireNonNull(response.errorBody()));
         } catch (IOException e) {
             return new ApiError();
         }
